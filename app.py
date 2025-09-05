@@ -3,9 +3,7 @@ import qrcode
 import io, base64
 
 app = Flask(__name__)
-
-# Global değişken (son üretilen QR kodu tutmak için)
-last_qr_image = None
+last_qr_image = None  # Son oluşturulan QR'ı tutmak için
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -17,7 +15,7 @@ def index():
 
         buffer = io.BytesIO()
         img.save(buffer, format="PNG")
-        last_qr_image = buffer.getvalue()  # indirilebilir dosya için sakla
+        last_qr_image = buffer.getvalue()
         qr_code = base64.b64encode(last_qr_image).decode("utf-8")
 
     return render_template("index.html", qr_code=qr_code)

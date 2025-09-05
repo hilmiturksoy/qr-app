@@ -5,36 +5,47 @@
   <title>QR Code Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-100">
-  <div class="bg-white shadow-lg rounded-2xl p-6 w-96 text-center">
-    <h1 class="text-2xl font-bold mb-4">QR Code Generator</h1>
-    <form method="POST" class="space-y-4">
+<body class="h-screen w-screen flex flex-col bg-gray-100">
+  <!-- Başlık -->
+  <header class="p-4 bg-blue-600 text-white text-center text-2xl font-bold">
+    QR Code Generator
+  </header>
+
+  <!-- Ana içerik -->
+  <main class="flex-grow flex flex-col items-center justify-center p-4">
+    <form method="POST" class="w-full max-w-2xl space-y-4">
       <input type="text" name="text" placeholder="Enter text or URL"
-        class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        class="w-full p-4 text-lg border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
       <button type="submit"
-        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg">
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 text-lg rounded-lg">
         Generate
       </button>
     </form>
 
     {% if qr_code %}
-    <div class="mt-6">
-      <img src="data:image/png;base64,{{ qr_code }}" class="mx-auto rounded shadow mb-4">
+    <div class="flex flex-col items-center justify-center mt-8 w-full">
+      <img src="data:image/png;base64,{{ qr_code }}"
+           class="max-w-sm w-full rounded-lg shadow mb-6">
 
-      <!-- Download Button -->
-      <a href="/download"
-         class="block w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg mb-2">
-        Download QR Code
-      </a>
-
-      <!-- Share Button (mobil tarayıcılarda çalışır) -->
-      <button onclick="shareQR()"
-              class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg">
-        Share QR Code
-      </button>
+      <!-- Download ve Share -->
+      <div class="w-full max-w-sm space-y-3">
+        <a href="/download"
+           class="block w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg text-center">
+          Download QR Code
+        </a>
+        <button onclick="shareQR()"
+                class="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 rounded-lg">
+          Share QR Code
+        </button>
+      </div>
     </div>
     {% endif %}
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="p-4 bg-gray-200 text-center text-sm text-gray-600">
+    © 2025 QR Generator
+  </footer>
 
   <script>
     async function shareQR() {
